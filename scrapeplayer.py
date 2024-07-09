@@ -5,7 +5,7 @@ import time
 
 listcfx = 'listfr.txt'
 
-def extract_codes():
+def ec():
     with open(listcfx, 'r', encoding='utf-8') as fichier:
         contenu = fichier.read()
     pattern = re.compile(r'\b(?=\w*[a-zA-Z])(?=\w*[0-9])\w{6}\b')
@@ -31,7 +31,7 @@ def fiveminfo(fivemid: str):
             print(f"Failed to fetch server data for {fivemid}.")
 
 
-def remove_duplicates(input_file, output_file):
+def rmdup(input_file, output_file):
     lines_seen = set()
     with open(output_file, "w") as output_file:
         for each_line in open(input_file, "r"):
@@ -41,11 +41,11 @@ def remove_duplicates(input_file, output_file):
 
 def main():
     while True:
-        codes = extract_codes()
+        codes = ec()
         for code in codes:
             fiveminfo(code)
             time.sleep(1)
-        remove_duplicates('players.txt', 'players_unique.txt')
+        rmdup('players.txt', 'players_unique.txt')
         print("wait 3.5 minutes.")
         time.sleep(210)
 
